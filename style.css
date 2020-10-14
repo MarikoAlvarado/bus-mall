@@ -1,32 +1,65 @@
 body{
 
-    background-color: rgb(214, 149, 185);
+    background-color: rgb(253, 158, 49);
 
 }
 
 header{
-
-    border-style: inset;
-    border-color: rgb(141, 100, 139);
-    margin: 30px;
-    background-color: rgb(100, 122, 141);
+    margin: 0 auto;
+    margin-bottom: 20px;
+    width: 700px;
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    border-width: 10px;
+    border-style: double;
+    border-color: black
 
 }
 
 h1{
-
-font-size: x-large;
-color: rgb(255, 223, 202);
+    font-family: 'Luckiest Guy', cursive;
+    text-align: center;
+    font-size: 50px;
+    color: rgb(0, 0, 0);
 
 }
 
+nav{
 
-form{
+    text-align: center;
 
+}
+
+ul a{
+
+    color: black;
+}
+
+h2{
+    border-style: solid;
+    border-color: black;
+    border-width: 5px;
+    padding-top: 10px;
+    font-family: 'Luckiest Guy', cursive;
+    margin: 0 auto;
+    text-align: center;
+    font-size: x-large;
+    color :rgb(0, 0, 0);
+    background-color: white;
+    width: 300px;
+    height: 60px;
+}
+
+#form{
+    
+    margin: 0 auto;
+    width: 500px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    background-color: rgb(15, 109, 163)
+    justify-content: space-evenly;
+    
+    
     
     
 
@@ -35,8 +68,24 @@ form{
 img{
 
     height: 200px;
+    margin: 10px;
+    border-style: solid;
+    border-color: black;
+    border-width: 5px;
 
 }
 
+.chartContainer{
+
+        width: 500px;
+        height: 300px;
+        margin: 0 auto;
+}
+
+canvas{
+    
+    position: relative;
+
+}
 
 

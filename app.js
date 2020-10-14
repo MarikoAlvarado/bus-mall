@@ -1,20 +1,21 @@
 var allProducts = [];
+// var labels = [];
+// var productLabels = labels.concat(allProducts.name);
 
-//image element id's for rendering
+var totalVotes = 0;
+
 var imageOneElement = document.getElementById('image-one');
 var imageTwoElement = document.getElementById('image-two');
 var imageThreeElement = document.getElementById('image-three');
-var imagesForm = document.getElementById('form');
 
 var recentRandomImage = [];
 var alreadyRenderedArray =[];
 var recentAndAlready = recentRandomImage.concat(alreadyRenderedArray);
 
-//////////////////////////////////////////////////////////////////////////////////////
-
 function Product(filepath, name){
   this.filepath = filepath;
   this.name = name;
+  this.views = 0;
   this.votes = 0;
 
 
@@ -43,7 +44,6 @@ new Product('img/water-can.jpg', 'water-can');
 new Product('img/wine-glass.jpg', 'wine-glass');
 
 
-
 function render(imageElement){
   var randomProductImage = getRandomImage(allProducts.length);
 
@@ -56,6 +56,12 @@ function render(imageElement){
   imageElement.alt = allProducts[randomProductImage].name;
   imageElement.title = allProducts[randomProductImage].name;
 
+  allProducts[randomProductImage].views++;
+
+  if(recentRandomImage.length > 5){
+    recentRandomImage.shift();
+  }
+
   recentRandomImage.push(randomProductImage);
 
 
@@ -66,13 +72,7 @@ function getRandomImage(max){
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-
-imagesForm.addEventListener('click', function(event){
-
-  render(imageOneElement);
-  render(imageTwoElement);
-  render(imageThreeElement);
-
+function handleClick(event){
   var chosenImage = event.target.title;
 
   for(var i = 0; i < allProducts.length; i++){
@@ -80,25 +80,111 @@ imagesForm.addEventListener('click', function(event){
       console.log('increasing votes for ', allProducts[i].name);
       allProducts[i].votes++;
     }
-
   }
 
-});
+  render(imageOneElement);
+  render(imageTwoElement);
+  render(imageThreeElement);
 
-//ONLY ABLE TO CLICK 5 TIMES?!!!!!!!!!!!!!!!!!!!!!!!!??????
-//STILL NEED TO RENDER LIST WITH VOTES
-//UPDATE NEWLY ADDED PROPERTY TO REFLECT IF CLICKED
-//GIVE 25 ROUNDS
-//REMOVE EVENT LISTENER AFTER 25 ROUNDS
-//ADD BUTTON WITH "VIEW RESULTS"
+  var chartVotes = [];
 
+  for(var v = 0; v < allProducts.length; v++){
+    chartVotes.push(allProducts[v].votes);
+  }
+
+
+  var productLabels = [];
+
+  for(var n = 0; n < allProducts.length; n++){
+    productLabels.push(allProducts[n].name);
+  }
+
+  totalVotes++;
+  if(totalVotes >= 25){
+    document.getElementById('form').removeEventListener('click', handleClick);
+
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      responsive: false,
+      maintainAspectRatio: false,
+
+
+      data: {
+        labels: productLabels,// produducts/////
+        datasets: [{
+          label: 'Total Votes, Hover To View Number Of Votes',
+          data: chartVotes, // add votes to this array
+          backgroundColor: [
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+            'rgb(255,255,255)',
+          ],
+          borderColor: [
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+            'rgb(0, 0, 0)',
+          ],
+          borderWidth: 3
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontColor:'white'
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              fontColor: 'white'
+            }
+          }]
+        }
+      }
+    });
+
+  }
+}
+
+document.getElementById('form').addEventListener('click', handleClick);
 
 render(imageOneElement);
 render(imageTwoElement);
 render(imageThreeElement);
-
-
-
-
-
-
