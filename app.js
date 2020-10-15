@@ -1,7 +1,4 @@
 var allProducts = [];
-// var labels = [];
-// var productLabels = labels.concat(allProducts.name);
-
 var totalVotes = 0;
 
 var imageOneElement = document.getElementById('image-one');
@@ -12,14 +9,15 @@ var recentRandomImage = [];
 var alreadyRenderedArray =[];
 var recentAndAlready = recentRandomImage.concat(alreadyRenderedArray);
 
-function Product(filepath, name){
+function Product(filepath, name, views = 0, votes = 0){
   this.filepath = filepath;
   this.name = name;
-  this.views = 0;
-  this.votes = 0;
+  this.views = views;
+  this.votes = votes;
 
 
   allProducts.push(this);
+
 }
 
 new Product('img/bag.jpg', 'bag');
@@ -42,6 +40,49 @@ new Product('img/unicorn.jpg', 'unicorn');
 new Product('img/usb.gif', 'usb');
 new Product('img/water-can.jpg', 'water-can');
 new Product('img/wine-glass.jpg', 'wine-glass');
+
+//////////////////////////////////////////////
+console.log('1. my allProduct array:', allProducts); //just checking!
+//turn AllProducts array into JSON
+var stringifyAllProducts = JSON.stringify(allProducts);
+console.log('2. my allProducts array as JSON:', stringifyAllProducts);
+// setting allProducts array JSON into local storage
+localStorage.setItem('allProducts', stringifyAllProducts);
+
+// getting allProducts array BACK from local storage
+// var productsFromLocalStorage = localStorage.getItem('allProducts');
+// console.log('3. allProducts from local storage:', productsFromLocalStorage);
+
+// // parse the allProductsArray as it comes back
+// var parsedAllProducts = JSON.parse(productsFromLocalStorage);
+// console.log('4. parsed allProducts array from local storage', parsedAllProducts);
+
+function checkLocal(){
+
+  var productsFromLocalStorage = localStorage.getItem('allProducts');
+  console.log('3. allProducts from local storage:', productsFromLocalStorage);
+
+  if(productsFromLocalStorage){
+
+    // parse the allProductsArray as it comes back
+    var parsedAllProducts = JSON.parse(productsFromLocalStorage);
+    console.log('4. parsed allProducts array from local storage', parsedAllProducts);
+
+    for(var x = 0; x < parsedAllProducts.length; x++){
+      new Product(parsedAllProducts[x].filepath, parsedAllProducts[x].name, parsedAllProducts[x].views, parsedAllProducts[x].votes);
+    }
+
+  } else {
+    generateNew();
+  }
+}
+
+
+
+
+
+
+/////////////////////////////////////////////////
 
 
 function render(imageElement){
@@ -188,3 +229,4 @@ document.getElementById('form').addEventListener('click', handleClick);
 render(imageOneElement);
 render(imageTwoElement);
 render(imageThreeElement);
+
