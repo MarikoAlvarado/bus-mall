@@ -1,4 +1,9 @@
 
+## Application Overview
+
+A client has asked that I support their startup, Bus-Mall by developing an application for bus riders to choose which provided products they are most interested in. Each user gets to vote 25 times from a total of 20 images of products. 
+Their votes, the number of times each product was viewed and a total of all votes will be reflected on a chart. With this data the client will be able to know which products they should include in their catalog to be supplied to bus riders so that they can get some shopping in during their journeys. In developing this application I used a form for user votes, a chart from [Chart.JS](https://www.chartjs.org/) and relied on local storage to store and persistently update vote data to allow for accumulation of information.
+
 **As a client, I would like to:**
 
 1. display three unique products by chance so that the viewers can pick a favorite.
